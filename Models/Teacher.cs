@@ -2,28 +2,28 @@ namespace Almacen.Models
 {
     public class Teacher
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
+        public string Id { get; set; }
+        public string? Name { get; set; }
+        public string? LastName { get; set; }
         public List<Class> Classes { get; set; }
-
         public Teacher()
         {
-            Id = 0;
+            Id = string.Empty;
             Name = string.Empty;
             LastName = string.Empty;
+            Classes = new List<Class>();
         }
-
-        public Teacher(int id, string name, string lastName)
+        public Teacher(string id, string name, string lastName)
         {
             Id = id;
             Name = name;
             LastName = lastName;
+            Classes = new List<Class>();
         }
 
         public override string ToString()
         {
-            return $"Profesor: {Id} {Name} {LastName}";
+            return $"Teacher: {Id} {Name} {LastName}";
         }
         
     }
