@@ -1,25 +1,27 @@
+using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
+
 namespace Almacen.Models
 {
+    [Serializable]
     public class Class
     {
+        [Required]
         public string Id { get; set; }
-        public string? Name { get; set; }
+        [Required]
+        public List<Student> Students { get; set; }
+        [Required]
         public Teacher Teacher { get; set; }
-        public Classroom Classroom { get; set; }
-        public List<string> Students { get; set; }
+        public List<string> classroms { get; set; }
 
         public Class()
         {
+            
             Id = string.Empty;
-            Name = string.Empty;
-            Classroom = new Classroom();
+            Students = new List<Student>();
             Teacher = new Teacher();
-            Students = new List<string>();
+            classroms = new List<string>();
         }
 
-        public override string ToString()
-        {
-            return $"Clase: {Id}\n{Name}\n{Classroom}\n{Teacher}\nStudents:\n{string.Join(" ", Students)}";
-        }
     }
 }

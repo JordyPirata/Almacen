@@ -1,21 +1,24 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Almacen.Models
 {
     public class Student
     {
-        public int Id { get; set; }
+        [Required]
+        public string StudentId { get; set; }
         public string? Name { get; set; }
-        public List<string> Classes { get; set; }
+        public string LastName { get; set; }
+        public string SurName { get; set; }
+        public string FullName => $"{Name} {LastName} {SurName}";
+        public List<string> classroms { get; set; }
 
-        public Student()
+        public Student(in string id)
         {
-            Id = 0;
+            StudentId = id;
             Name = string.Empty;
-            Classes = new List<string>();
-        }
-
-        public override string ToString()
-        {
-            return $"Estudiante: {Id} {Name}\n{string.Join(",", Classes)}";
+            LastName = string.Empty;
+            SurName = string.Empty;
+            classroms = new List<string>();
         }
     }
 }
