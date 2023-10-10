@@ -8,7 +8,7 @@ namespace Almacen.Login
         public static void ConsoleLogin()
         {
             // login with user and password or create new user
-            const string? SignIn = "Sign In", SignUp = "Sign Up";
+            const string? signIn = "Sign In", signUp = "Sign Up";
 
             Clear();
             var user = AnsiConsole.Prompt(
@@ -16,16 +16,15 @@ namespace Almacen.Login
                     .Title("Select an option")
                     .PageSize(3)
                     .AddChoices(new[] {
-                        SignIn, SignUp
+                        signIn, signUp
             }));
             switch (user)
             {
-                case SignIn:
-
-                    LoginUser.SingIn();
+                case signIn:
+                    SingIn.Sing_In();
                     break;
-                case SignUp:
-                    LoginUser.SignUp();
+                case signUp:
+                    SignUp.Sign_Up();
                     break;
             }
         }

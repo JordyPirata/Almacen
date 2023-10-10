@@ -3,27 +3,11 @@ using Almacen.Models;
 namespace Almacen.Login
 {
 
-    public class LoginUser
+    public class SignUp
     {
-        public const string Gadmin = "Admin", Gteacher = "Teacher", Gstudent = "Student";
-
-        public static void SingIn()
-        {
-            AnsiConsole.Markup("[blue]Sign In[/]\n");
-            Write("Enter your user name: ");
-            var userName = ReadLine();
-            Write("Enter your password: ");
-            var password = ReadLine();
-
-            string path = "Data/Users.json";
-            string json = File.ReadAllText(path);
-            WriteLine(password);
-            WriteLine();
-            WriteLine(json);
-            //Check if user exist in database
-
-        }
-        public static void SignUp()
+        public const string gAdmin = "Admin", gTeacher = "Teacher", gStudent = "Student";
+        //Console Sign Up
+        public static void Sign_Up()
         {
 
             Clear();
@@ -32,18 +16,18 @@ namespace Almacen.Login
                     .Title("Select your type of user")
                     .PageSize(3)
                     .AddChoices(new[] {
-                        Gadmin, Gteacher, Gstudent
+                        gAdmin, gTeacher, gStudent
             }));
             switch (typeOfUser)
             {
-                case Gadmin:
-                    CreateUser(Gadmin);
+                case gAdmin:
+                    CreateUser(gAdmin);
                     break;
-                case Gteacher:
-                    CreateUser(Gteacher);
+                case gTeacher:
+                    CreateUser(gTeacher);
                     break;
-                case Gstudent:
-                    CreateUser(Gstudent);
+                case gStudent:
+                    CreateUser(gStudent);
                     break;
             }
         }
@@ -86,17 +70,17 @@ namespace Almacen.Login
             string json = string.Empty;
             switch (typeOfUser)
             {
-                case Gadmin:
+                case gAdmin:
                     //Admin admin = new();
                     //admin.SetUser(userName, password);
                     //json = System.Text.Json.JsonSerializer.Serialize(admin);
                     break;
-                case Gteacher:
+                case gTeacher:
                     Teacher teacher = new();
                     teacher.SetUser(userName, password);
                     json = System.Text.Json.JsonSerializer.Serialize(teacher);
                     break;
-                case Gstudent:
+                case gStudent:
                     Student student = new();
                     student.SetUser(userName, password);
                     json = System.Text.Json.JsonSerializer.Serialize(student);

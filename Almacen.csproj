@@ -9,8 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
-    <Using Include="System.Console" Static="true"/>
-    <Using Include="Spectre.Console"/>
+    <PackageReference Include="Spectre.Console.Json" Version="0.47.0" />
+    <Using Include="System.Console" Static="true" />
+    <Using Include="Spectre.Console" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Almacen.Models
 {
@@ -6,11 +7,24 @@ namespace Almacen.Models
     public abstract class User
     {
         [Required]
+        [JsonInclude]
+        public string Id { get; set; }
+        [Required]
+        [JsonInclude]
         private string UserName;
         [Required]
+        [JsonInclude]
         private string Password;
-
-
+        [Required]
+        [JsonInclude]
+        public string? Name { get; set; }
+        [Required]
+        [JsonInclude]
+        public string LastName { get; set; }
+        [Required]
+        [JsonInclude]
+        public string SurName { get; set; }
+        public string FullName => $"{Name} {LastName} {SurName}";
         public void SetUser(string userName, string password)
         {
             UserName = userName;
@@ -18,18 +32,12 @@ namespace Almacen.Models
         }
         public User()
         {
+            Id = string.Empty;
             UserName = string.Empty;
             Password = string.Empty;
-        }
-
-        public void SetUserName(string userName)
-        {
-            UserName = userName;
-        }
-
-        public void SetPassword(string password)
-        {
-            Password = password;
+            Name = string.Empty;
+            LastName = string.Empty;
+            SurName = string.Empty;
         }
 
         public string GetUserName()
