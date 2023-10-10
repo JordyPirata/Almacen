@@ -1,14 +1,12 @@
-using Spectre.Console;
 using Almacen.Models;
-using System.Xml.Serialization; // XmlSerializer
-using static System.Environment;
-using static System.IO.Path;
 
 namespace Almacen.Login
 {
+
     public class LoginUser
     {
-        //Check if user exist in Data/ users.json
+        public const string Gadmin = "Admin", Gteacher = "Teacher", Gstudent = "Student";
+
         public static void SingIn()
         {
             AnsiConsole.Markup("[blue]Sign In[/]\n");
@@ -27,58 +25,86 @@ namespace Almacen.Login
         }
         public static void SignUp()
         {
-            const string admin = "Admin", teacher = "Teacher", student = "Student";
+
             Clear();
             var typeOfUser = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Select your type of user")
                     .PageSize(3)
                     .AddChoices(new[] {
-                        admin, teacher, student
+                        Gadmin, Gteacher, Gstudent
             }));
             switch (typeOfUser)
             {
-                case admin:
-                    CreateUser(admin);
+                case Gadmin:
+                    CreateUser(Gadmin);
                     break;
-                case teacher:
-                    CreateUser(teacher);
+                case Gteacher:
+                    CreateUser(Gteacher);
                     break;
-                case student:
-                    CreateUser(student);
+                case Gstudent:
+                    CreateUser(Gstudent);
                     break;
             }
         }
         private static void CreateUser(string typeOfUser)
         {
-            AnsiConsole.Markup("[blue]Sign Up[/]\n");
-            Write("Enter your user name: ");
-            var userName = ReadLine();
-            Write("Enter your password: ");
-            var password = ReadLine();
-            Write("Confirm your password: ");
-            var confirmPassword = ReadLine();
-            if (password == confirmPassword)
+            string password, confirmPassword, message,userName;
+            do
             {
-                string path = "Data/Users.json";
-                //Create new teacher
-                Teacher teacher = new Teacher();
-                teacher.SetUser(userName, password);
-                //checks if Data/tachers.json exist
-                if (!File.Exists(path))
-                {
-                    //Create Data/teachers.json
-                    File.Create(path);
-                }
+                Clear();
+                AnsiConsole.Markup($"[blue]Sign Up[/][grey] ({typeOfUser})[/]\n");
+                Write("Enter your user name: ");
+                userName = ReadLine() ?? string.Empty;
+                Write("Enter your password: ");
+                password = ReadLine() ?? string.Empty;
+                Write("Confirm your password: ");
+                confirmPassword = ReadLine() ?? string.Empty;
 
-                //Save teacher in database
-                //string json = JsonConverter(teacher);
-                AnsiConsole.Markup("[green]User created successfully[/]\n");
-            }
-            else
+                message = (password == confirmPassword) ? "[green]Passwords match[/]" : "[red]Passwords do not match[/]";
+                AnsiConsole.Markup($"{message}\n[gray]Press any key to continue...[/]");
+                ReadLine();
+            } while (password != confirmPassword);
+
+            SaveUserJson(typeOfUser, userName, password);
+        }
+
+        //Save user in Json file
+        private static void SaveUserJson(string typeOfUser, string userName, string password)
+        {
+            string path = "Data/" + typeOfUser + ".json";
+            //checks if Data/teachers.json exist
+            if (!File.Exists(path))
             {
-                AnsiConsole.Markup("[red]Passwords do not match[/]\n");
+                //Create data folder
+                Directory.CreateDirectory("Data");
+                //Create Data/teachers.json
+                File.Create(path).Dispose();
             }
+            //Create new user
+
+            string json = string.Empty;
+            switch (typeOfUser)
+            {
+                case Gadmin:
+                    //Admin admin = new();
+                    //admin.SetUser(userName, password);
+                    //json = System.Text.Json.JsonSerializer.Serialize(admin);
+                    break;
+                case Gteacher:
+                    Teacher teacher = new();
+                    teacher.SetUser(userName, password);
+                    json = System.Text.Json.JsonSerializer.Serialize(teacher);
+                    break;
+                case Gstudent:
+                    Student student = new();
+                    student.SetUser(userName, password);
+                    json = System.Text.Json.JsonSerializer.Serialize(student);
+                    break;
+            }
+            //Save teacher in database
+            File.WriteAllText(path, json);
+            AnsiConsole.Markup("[green]User created successfully[/]\n");
         }
     }
 }

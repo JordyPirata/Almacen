@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Almacen.Models
 {
+    [Serializable]
     public class Student : User
     {
         [Required]
@@ -12,9 +13,9 @@ namespace Almacen.Models
         public string FullName => $"{Name} {LastName} {SurName}";
         public List<string> classroms { get; set; }
 
-        public Student(in string id)
+        public Student()
         {
-            StudentId = id;
+            StudentId = string.Empty;
             Name = string.Empty;
             LastName = string.Empty;
             SurName = string.Empty;

@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Almacen.Helpers;
 
 namespace Almacen.Models
 {
+    [Serializable]
     public abstract class User
     {
         [Required]

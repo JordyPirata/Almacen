@@ -1,7 +1,4 @@
 // Purpose: Login class for the Almacen program.
-using System.Reflection.Metadata;
-using Spectre.Console;
-using Almacen.Helpers;
 
 namespace Almacen.Login
 {
