@@ -3,7 +3,8 @@ using System.Runtime.CompilerServices;
 
 namespace Almacen.Models
 {
-    public class Teacher
+    [Serializable]
+    public class Teacher : User
     {
         [Required]
         public string Id { get; set; }

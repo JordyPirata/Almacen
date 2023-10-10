@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Almacen.Models
 {
-    public class Student
+    public class Student : User
     {
         [Required]
         public string StudentId { get; set; }

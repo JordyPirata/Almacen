@@ -16,7 +16,7 @@ namespace Almacen.Models
 
         public Class()
         {
-            
+
             Id = string.Empty;
             Students = new List<Student>();
             Teacher = new Teacher();
