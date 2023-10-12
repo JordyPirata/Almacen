@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Almacen.Util
+namespace src.Util.UserJson
 {
-    public class DeleteUser
+    public class JsonUser : UserInterface
     {
         
     }

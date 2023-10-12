@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Almacen.Util.UserXml
+namespace src.Util
 {
-    public class SaveXmlUser
+    public interface UserInterface 
     {
         
     }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Almacen.Util
 {
-    public class CreateUser
+    public class CreateUser 
     {
         
     }

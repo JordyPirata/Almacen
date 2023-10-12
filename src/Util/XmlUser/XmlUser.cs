@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Almacen.Util.UserJson
+namespace src.Util.UserXml
 {
-    public class CheckJsonUser
+    public class XmlUser : UserInterface
     {
         
     }
