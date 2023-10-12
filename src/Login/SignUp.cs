@@ -1,5 +1,3 @@
-using System.Text.Json;
-using System.Text.Json.Nodes;
 using Almacen.Models;
 
 namespace Almacen.Login;
@@ -9,7 +7,7 @@ public class SignUp
     //Console Sign Up
     public static void Sign_Up()
     {
-
+        // login with user and password or create new user
         Clear();
         var typeOfUser = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
@@ -18,19 +16,36 @@ public class SignUp
                 .AddChoices(new[] {
                     gStoreKeeper, gTeacher, gStudent
         }));
+        UserStatus status = UserStatus.UserNotFound;
         switch (typeOfUser)
         {
             case gStoreKeeper:
-                CreateUserForm(gStoreKeeper);
+                status = UserFactory.CreateUser(UserFactory.StoreKeeper);
                 break;
             case gTeacher:
-                CreateUserForm(gTeacher);
+                status = UserFactory.CreateUser(UserFactory.Teacher);
                 break;
             case gStudent:
-                CreateUserForm(gStudent);
+                status = UserFactory.CreateUser(UserFactory.Student);
+                break;
+        }
+
+        Clear();
+        switch(status)
+        {
+            case UserStatus.UserAlreadyExists:
+                AnsiConsole.Markup("[red]User alredy exists[/]\n");
+                break;
+            case UserStatus.UserCreated:
+                AnsiConsole.Markup("[green]User created successfully[/]\n");
+                break;
+            case UserStatus.UserNotFound:
+                AnsiConsole.Markup("[red]User not found[/]\n");
                 break;
         }
     }
+
+
     private static void CreateUserForm(string typeOfUser)
     {
         string password, confirmPassword, message, userName;
@@ -49,10 +64,8 @@ public class SignUp
             AnsiConsole.Markup($"{message}\n[gray]Press any key to continue...[/]");
             ReadLine();
         } while (password != confirmPassword);
-        
-        SaveUser(typeOfUser, userName, password);
     }
-
+    /*
     //Save user in Json file
     private static void SaveUser(string typeOfUser, string userName, string password)
     {
@@ -66,44 +79,23 @@ public class SignUp
             File.Create(path).Dispose();
         }
         //Create new user
-        Dictionary<string, string> users = new();
-
-        string newUser = string.Empty;
         switch (typeOfUser)
         {
             case gStoreKeeper:
                 StoreKeeper storeKeeper = new();
-                storeKeeper.SetUser(userName, password);
-                newUser = JsonSerializer.Serialize(storeKeeper);
+                storeKeeper.CreateUser();
                 break;
             case gTeacher:
                 Teacher teacher = new();
-                teacher.SetUser(userName, password);
-                newUser = JsonSerializer.Serialize(teacher);
+                teacher.CreateUser();
                 break;
             case gStudent:
                 Student student = new();
-                student.SetUser(userName, password);
-                newUser = JsonSerializer.Serialize(student);
+                student.CreateUser();
                 break;
         }
-        //read Data/{typeOfUser}.json
-        if (File.Exists(path)) {
-            using var jsonLoad = File.Open(path, FileMode.Open);
-            var json = JsonNode.Parse(jsonLoad);
-
-        }
-
-
-
-        //Add user in a dictionary of users
-        // Dictionary<string, string> users = new();
-        users.Add(userName, newUser);
-        //Serialize dictionary
-        //string usersJson = System.Text.Json.JsonSerializer.Serialize(users);
-        //Save in Data/teachers.json
-        // File.WriteAllText(path, usersJson);
         Clear();
         AnsiConsole.Markup("[green]User created successfully[/]\n");
     }
+    */
 }

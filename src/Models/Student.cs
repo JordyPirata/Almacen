@@ -11,10 +11,6 @@ public class Student : User
 
     public Student()
     {
-        Id = string.Empty;
-        Name = string.Empty;
-        LastName = string.Empty;
-        SurName = string.Empty;
         classroms = new List<string>();
     }
 }
