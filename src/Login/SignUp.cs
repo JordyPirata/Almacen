@@ -3,21 +3,13 @@ using Almacen.Models;
 using Almacen.Util;
 
 namespace Almacen.Login;
-public class SignUp
+public class SignUp : Login
 {
-    public const string gStoreKeeper = "StoreKeeper", gTeacher = "Teacher", gStudent = "Student";
     //Console Sign Up
     public static void Sign_Up()
     {
         // login with user and password or create new user
-        Clear();
-        var typeOfUser = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title("Select your type of user")
-                .PageSize(3)
-                .AddChoices(new[] {
-                    gStoreKeeper, gTeacher, gStudent
-        }));
+        var typeOfUser = SelectUser();
         switch (typeOfUser)
         {
             case gStoreKeeper:
