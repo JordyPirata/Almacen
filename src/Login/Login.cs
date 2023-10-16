@@ -8,7 +8,7 @@ public class Login
     public static void ConsoleLogin()
     {
         // login with user and password or create new user
-        const string? signIn = "Sign In", signUp = "Sign Up";
+        const string? singIn = "Sign In", signUp = "Sign Up";
 
         Clear();
         var user = AnsiConsole.Prompt(
@@ -16,12 +16,12 @@ public class Login
                 .Title("Select an option")
                 .PageSize(3)
                 .AddChoices(new[] {
-                    signIn, signUp
+                    singIn, signUp
         }));
         switch (user)
         {
-            case signIn:
-                SingIn.Sing_In();
+            case singIn:
+                SignIn.Sign_In();
                 break;
             case signUp:
                 SignUp.Sign_Up();

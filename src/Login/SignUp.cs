@@ -1,4 +1,6 @@
+using Almacen.Helpers;
 using Almacen.Models;
+using Almacen.Util;
 
 namespace Almacen.Login;
 public class SignUp
@@ -16,39 +18,26 @@ public class SignUp
                 .AddChoices(new[] {
                     gStoreKeeper, gTeacher, gStudent
         }));
-        UserStatus status = UserStatus.UserNotFound;
         switch (typeOfUser)
         {
             case gStoreKeeper:
-                status = UserFactory.CreateUser(UserFactory.StoreKeeper);
+                CreateUserForm(UserFactory.StoreKeeper);
                 break;
             case gTeacher:
-                status = UserFactory.CreateUser(UserFactory.Teacher);
+                CreateUserForm(UserFactory.Teacher);
                 break;
             case gStudent:
-                status = UserFactory.CreateUser(UserFactory.Student);
-                break;
-        }
-
-        Clear();
-        switch(status)
-        {
-            case UserStatus.UserAlreadyExists:
-                AnsiConsole.Markup("[red]User alredy exists[/]\n");
-                break;
-            case UserStatus.UserCreated:
-                AnsiConsole.Markup("[green]User created successfully[/]\n");
-                break;
-            case UserStatus.UserNotFound:
-                AnsiConsole.Markup("[red]User not found[/]\n");
+                CreateUserForm(UserFactory.Student);
                 break;
         }
     }
-
-
     private static void CreateUserForm(string typeOfUser)
     {
         string password, confirmPassword, message, userName;
+        //create database on json
+        DB dbJson = DBFactory.CreateDB(DBFactory.JSON, typeOfUser);
+        //create database on xml
+        DB dbXml = DBFactory.CreateDB(DBFactory.XML, typeOfUser);
         do
         {
             Clear();
@@ -60,42 +49,24 @@ public class SignUp
             Write("Confirm your password: ");
             confirmPassword = ReadLine() ?? string.Empty;
 
+            //Check if passwords match
             message = (password == confirmPassword) ? "[green]Passwords match[/]" : "[red]Passwords do not match[/]";
-            AnsiConsole.Markup($"{message}\n[gray]Press any key to continue...[/]");
-            ReadLine();
-        } while (password != confirmPassword);
-    }
-    /*
-    //Save user in Json file
-    private static void SaveUser(string typeOfUser, string userName, string password)
-    {
-        string path = "Data/" + typeOfUser + ".json";
-        //checks if Data/teachers.json exist
-        if (!File.Exists(path))
-        {
-            //Create data folder
-            Directory.CreateDirectory("Data");
-            //Create Data/teachers.json
-            File.Create(path).Dispose();
-        }
-        //Create new user
-        switch (typeOfUser)
-        {
-            case gStoreKeeper:
-                StoreKeeper storeKeeper = new();
-                storeKeeper.CreateUser();
-                break;
-            case gTeacher:
-                Teacher teacher = new();
-                teacher.CreateUser();
-                break;
-            case gStudent:
-                Student student = new();
-                student.CreateUser();
-                break;
-        }
+            if (dbJson.HaveUser(userName) || dbJson.HaveUser(userName))
+            {
+                message = "[red]User already exists[/]";
+            }
+            //Check if user exist in database
+        } while (password != confirmPassword || dbJson.HaveUser(userName) || dbJson.HaveUser(userName));
+        
+        //Save user
+        dbJson.SaveUser(UserFactory.CreateUser(typeOfUser, userName, password));
+        dbXml.SaveUser(UserFactory.CreateUser(typeOfUser, userName, password));
         Clear();
-        AnsiConsole.Markup("[green]User created successfully[/]\n");
+
+        message = "[green]User created successfully[/]";
+        AnsiConsole.Markup($"{message}\n[gray]Press any key to continue...[/]");
+        ReadLine();
+
+        SignIn.Sign_In();        
     }
-    */
 }

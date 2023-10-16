@@ -15,10 +15,9 @@ public class Class
 
     public Class()
     {
-
         Id = string.Empty;
         Students = new List<Student>();
-        Teacher = new Teacher();
+        Teacher = new Teacher(string.Empty, string.Empty);
         classroms = new List<string>();
     }
 }

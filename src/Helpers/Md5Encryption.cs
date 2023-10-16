@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Almacen.Helpers;
-public class Md5Password
+public class Md5Encryption
 {
 
     // Hash an input string and return the hash as

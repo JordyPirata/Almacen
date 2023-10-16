@@ -1,32 +1,32 @@
 namespace Almacen.Models;
+public struct UserData
+{
 
+}
 public class UserFactory
 {
     public const string Teacher = "Teacher";
     public const string Student = "Student";
     public const string StoreKeeper = "StoreKeeper";
 
-    public static UserStatus CreateUser(string userType)
+    public static User CreateUser(string userType,string userName, string password)
     {
-        UserStatus status;
+        User user;
         switch (userType)
         {
             case Teacher:
-                new Teacher();
-                status = UserStatus.UserCreated;
+                user = new Teacher(userName, password);
                 break;
             case Student:
-                new Student();
-                status = UserStatus.UserCreated;
+                user = new Student(userName, password);
                 break;
             case StoreKeeper:
-                new StoreKeeper();
-                status = UserStatus.UserCreated;
+                user = new StoreKeeper(userName, password);
                 break;
             default:
-                status = UserStatus.UserNotFound;
-                break;
+                throw new ArgumentException("Invalid user type", nameof(userType));
         }
-        return status;
+        return user;
     }
+
 }

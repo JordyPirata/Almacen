@@ -11,7 +11,7 @@ public class Md5PasswordTests
         var expectedHash = "482c811da5d5b4bc6d497ffa98491e38";
 
         // Act
-        var actualHash = Md5Password.GetMd5Hash(input);
+        var actualHash = Md5Encryption.GetMd5Hash(input);
 
         // Assert
         Assert.Equal(expectedHash, actualHash);
@@ -25,7 +25,7 @@ public class Md5PasswordTests
         var hash = "482c811da5d5b4bc6d497ffa98491e38";
 
         // Act
-        var result = Md5Password.VerifyMd5Hash(input, hash);
+        var result = Md5Encryption.VerifyMd5Hash(input, hash);
 
         // Assert
         Assert.True(result);
@@ -39,7 +39,7 @@ public class Md5PasswordTests
         var hash = "incorrecthash";
 
         // Act
-        var result = Md5Password.VerifyMd5Hash(input, hash);
+        var result = Md5Encryption.VerifyMd5Hash(input, hash);
 
         // Assert
         Assert.False(result);
