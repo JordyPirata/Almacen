@@ -5,7 +5,6 @@ public abstract class DB
 {
     public string TypeOfUser { get; set; }
     public string Path { get; set; }
-
     public DB(string typeOfUser)
     {
         TypeOfUser = typeOfUser;
@@ -16,7 +15,6 @@ public abstract class DB
     public abstract List<Teacher>? GetTeachers();
     public abstract List<Student>? GetStudents();
     public abstract List<StoreKeeper>? GetStoreKeepers();
-
     public bool HaveUser(string userName)
     {
         switch (TypeOfUser)
@@ -52,5 +50,4 @@ public abstract class DB
         }
     }
     public abstract void DeleteUser(User user);
-
 }

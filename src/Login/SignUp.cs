@@ -25,6 +25,7 @@ public class SignUp : Login
     }
     private static void CreateUserForm(string typeOfUser)
     {
+        Clear();
         string password, confirmPassword, message, userName;
         //create database on json
         DB dbJson = DBFactory.CreateDB(DBFactory.JSON, typeOfUser);
@@ -32,7 +33,6 @@ public class SignUp : Login
         DB dbXml = DBFactory.CreateDB(DBFactory.XML, typeOfUser);
         do
         {
-            Clear();
             AnsiConsole.Markup($"[blue]Sign Up[/] [grey]({typeOfUser})[/]\n");
             Write("Enter your user name: ");
             userName = ReadLine() ?? string.Empty;
@@ -42,11 +42,13 @@ public class SignUp : Login
             confirmPassword = ReadLine() ?? string.Empty;
 
             //Check if passwords match
-            message = (password == confirmPassword) ? "[green]Passwords match[/]" : "[red]Passwords do not match[/]";
+            Clear();
+            message = (password == confirmPassword) ? "[green]Passwords match[/]\n" : "[red]Passwords do not match[/]\n";
             if (dbJson.HaveUser(userName) || dbJson.HaveUser(userName))
             {
-                message = "[red]User already exists[/]";
+                message = "[red]User already exists[/]\n";
             }
+            AnsiConsole.Markup($"{message}");
             //Check if user exist in database
         } while (password != confirmPassword || dbJson.HaveUser(userName) || dbJson.HaveUser(userName));
         
