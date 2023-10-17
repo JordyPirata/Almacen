@@ -22,7 +22,16 @@ public class SignIn : Login
         Write("Enter your password: ");
         var password = ReadLine();
 
+        //check if user exists
 
 
+
+    }
+
+    public static bool VerificateUser(string userName, string password, DB db)
+    {
+        db.HaveUser(userName);
+
+        return false;
     }
 }

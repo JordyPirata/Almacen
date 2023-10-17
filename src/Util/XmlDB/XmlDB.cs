@@ -1,16 +1,13 @@
 
 using Almacen.Models;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Almacen.Util.XmlUser;
 
 public class XmlDB : DB
 {
-
-    public string TypeOfUser { get; set; }
-    public string Path { get; set; }
-
-    public XmlDB(string typeOfUser)
+    public XmlDB(string typeOfUser) : base(typeOfUser)
     {
         TypeOfUser = typeOfUser;
         Path = CreateDB();
@@ -27,7 +24,7 @@ public class XmlDB : DB
         string filePath = Path = $"{directoryPath}/{TypeOfUser}.xml";
         return filePath;
     }
-    public List<Teacher>? GetTeachers()
+    public override List<Teacher>? GetTeachers()
     {
         List<Teacher> teachers = new List<Teacher>();
         if (File.Exists(Path))
@@ -40,7 +37,7 @@ public class XmlDB : DB
         }
         return teachers ?? new List<Teacher>();
     }
-    public List<Student>? GetStudents()
+    public override List<Student>? GetStudents()
     {
         List<Student> students = new List<Student>();
         if (File.Exists(Path))
@@ -53,7 +50,7 @@ public class XmlDB : DB
         }
         return students ?? new List<Student>();
     }
-    public List<StoreKeeper>? GetStoreKeepers()
+    public override List<StoreKeeper>? GetStoreKeepers()
     {
         List<StoreKeeper> storeKeepers = new List<StoreKeeper>();
         if (File.Exists(Path))
@@ -100,18 +97,38 @@ public class XmlDB : DB
                 break;
         }
     }
-    public override bool HaveUser(string userName)
+    public override void DeleteUser(User user)
     {
-        switch (TypeOfUser)
+        XmlSerializer serializer;
+        switch (user)
         {
-            case UserFactory.Teacher:
-                return GetTeachers().Any(teacher => teacher.UserName == userName);
-            case UserFactory.Student:
-                return GetStudents().Any(student => student.UserName == userName);
-            case UserFactory.StoreKeeper:
-                return GetStoreKeepers().Any(storeKeeper => storeKeeper.UserName == userName);
-            default:
-                throw new ArgumentException("Invalid user type", nameof(TypeOfUser));
+            case Teacher teacher:
+                List<Teacher> teachers = GetTeachers() ?? new List<Teacher>();
+                teachers.Remove(teacher);
+                serializer = new XmlSerializer(typeof(List<Teacher>));
+                using (FileStream stream = File.Create(Path))
+                {
+                    serializer.Serialize(stream, teachers);
+                }
+                break;
+            case Student student:
+                List<Student> students = GetStudents() ?? new List<Student>();
+                students.Remove(student);
+                serializer = new XmlSerializer(typeof(List<Student>));
+                using (FileStream stream = File.Create(Path))
+                {
+                    serializer.Serialize(stream, students);
+                }
+                break;
+            case StoreKeeper storeKeeper:
+                List<StoreKeeper> storeKeepers = GetStoreKeepers() ?? new List<StoreKeeper>();
+                storeKeepers.Remove(storeKeeper);
+                serializer = new XmlSerializer(typeof(List<StoreKeeper>));
+                using (FileStream stream = File.Create(Path))
+                {
+                    serializer.Serialize(stream, storeKeepers);
+                }
+                break;
         }
     }
 }

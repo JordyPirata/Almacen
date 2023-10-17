@@ -6,7 +6,7 @@ public class JsonDB : DB
 {
     public string TypeOfUser { get; set; }
     public string Path { get; set; }
-    public JsonDB(string typeOfUser)
+    public JsonDB(string typeOfUser) : base(typeOfUser)
     {
         TypeOfUser = typeOfUser;
         Path = CreateDB();
@@ -30,7 +30,7 @@ public class JsonDB : DB
 
         return filePath;
     }
-    public List<Teacher>? GetTeachers()
+    public override List<Teacher>? GetTeachers()
     {
         List<Teacher> teachers = new List<Teacher>();
         if (File.Exists(Path))
@@ -40,7 +40,7 @@ public class JsonDB : DB
         }
         return teachers ?? new List<Teacher>();
     }
-    public List<Student>? GetStudents()
+    public override List<Student>? GetStudents()
     {
         List<Student> students = new List<Student>();
         if (File.Exists(Path))
@@ -50,7 +50,7 @@ public class JsonDB : DB
         }
         return students ?? new List<Student>();
     }
-    public List<StoreKeeper>? GetStoreKeepers()
+    public override List<StoreKeeper>? GetStoreKeepers()
     {
         List<StoreKeeper> storeKeepers = new List<StoreKeeper>();
         if (File.Exists(Path))
@@ -86,21 +86,30 @@ public class JsonDB : DB
                 throw new ArgumentException("Invalid user type", nameof(user));
         }
     }
-    public override bool HaveUser(string userName)
+    public override void DeleteUser(User user)
     {
-        switch (TypeOfUser)
+        switch(user)
         {
-            case UserFactory.Teacher:
+            case Teacher teacher:
                 List<Teacher> teachers = GetTeachers() ?? new List<Teacher>();
-                return teachers.Any(user => user.UserName == userName);
-            case UserFactory.Student:
+                teachers.Remove(teacher);
+                string jsonTeachers = JsonConvert.SerializeObject(teachers);
+                File.WriteAllText(Path, jsonTeachers);
+                break;
+            case Student student:
                 List<Student> students = GetStudents() ?? new List<Student>();
-                return students.Any(user => user.UserName == userName);
-            case UserFactory.StoreKeeper:
+                students.Remove(student);
+                string jsonStudents = JsonConvert.SerializeObject(students);
+                File.WriteAllText(Path, jsonStudents);
+                break;
+            case StoreKeeper storeKeeper:
                 List<StoreKeeper> storeKeepers = GetStoreKeepers() ?? new List<StoreKeeper>();
-                return storeKeepers.Any(user => user.UserName == userName);
+                storeKeepers.Remove(storeKeeper);
+                string jsonStoreKeepers = JsonConvert.SerializeObject(storeKeepers);
+                File.WriteAllText(Path, jsonStoreKeepers);
+                break;
             default:
-                throw new ArgumentException("Invalid user type", nameof(TypeOfUser));
+                throw new ArgumentException("Invalid user type", nameof(user));
         }
     }
 }
