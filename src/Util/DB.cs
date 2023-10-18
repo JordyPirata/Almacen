@@ -1,6 +1,6 @@
 using Almacen.Models;
+using Almacen.Helpers;
 namespace Almacen.Util;
-
 public enum ReportType
 {
     ReportByClassroom,
@@ -58,5 +58,36 @@ public abstract class DB
         }
     }
     public abstract void DeleteUser(User user);
-    //Test ssh key
+    public List<Teacher> GenerateReport(ReportType type)
+    {
+        List<Teacher> teachers = GetTeachers() ?? new List<Teacher>();
+        new CustomComparer();
+        switch(type)
+        {
+            case ReportType.ReportByClassroom:
+                //Sort classrooms
+                teachers.ForEach(teacher => teacher.Classes.Sort((x,y) => new CustomComparer().Compare(x, y)));
+                //Sort teachers by first classroom
+                teachers.Sort((x,y) => new CustomComparer().Compare(x.Classes[0], y.Classes[0]));
+                break;
+            case ReportType.ReportByPayroll:
+                teachers.Sort((x, y) => new CustomComparer().Compare(x.Payroll, y.Payroll));
+                break;
+            case ReportType.ReportBySubject:
+                //Sort subjects
+                teachers.ForEach(teacher => teacher.Subjects.Sort((x,y) => new CustomComparer().Compare(x, y)));
+                //Sort teachers by first subject
+                teachers.Sort((x, y) => new CustomComparer().Compare(x.Subjects[0], y.Subjects[0]));
+                break;
+            case ReportType.ReportById:
+                teachers.Sort((x, y) => x.Id.CompareTo(y.Id));
+                break;
+            case ReportType.ReportByUserName:
+                teachers.Sort((x, y) => new CustomComparer().Compare(x.UserName, y.UserName));
+                break;
+            default:
+                throw new ArgumentException("Invalid report type", nameof(type));
+        }
+        return teachers;
+    }
 }

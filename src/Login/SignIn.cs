@@ -37,4 +37,5 @@ public class SignIn : Login
     public static bool VerificateUser(string userName, string password, DB db) =>
 
     db.HaveUser(userName) && Md5Encryption.VerifyMd5Hash(password, db.GetUser(userName).Password);
+    
 }

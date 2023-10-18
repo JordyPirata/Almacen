@@ -12,13 +12,13 @@ namespace Almacen.Models
         public string Payroll { get; set; }
         [JsonInclude]
         public List<string> Subjects { get; set; }
-        public List<Class> Classes { get; set; }
+        public List<string> Classes { get; set; }
         public Teacher(string userName, string password) : base(userName, password)
         {
             Salary = string.Empty;
             Payroll = string.Empty;
             Subjects = new List<string>();
-            Classes = new List<Class>();
+            Classes = new List<string>();
             TypeOfUser = UserFactory.Teacher;
         }
         public Teacher() : base()
@@ -26,7 +26,7 @@ namespace Almacen.Models
             Salary = string.Empty;
             Payroll = string.Empty;
             Subjects = new List<string>();
-            Classes = new List<Class>();
+            Classes = new List<string>();
             TypeOfUser = UserFactory.Teacher;
         }
         public string GetPayroll()

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Almacen.Models;
 
 namespace Almacen.Menu;
@@ -29,7 +25,7 @@ public class Menu
     }
     private static void TeacherMenu(Teacher teacher)
     {
-        WriteLine("Hello Teacher!");
+        
     }
     private static void StudentMenu(Student student)
     {
