@@ -9,7 +9,7 @@ public class UserFactory
     public const string Student = "Student";
     public const string StoreKeeper = "StoreKeeper";
 
-    public static User CreateUser(string userType,string userName, string password)
+    public static User CreateUser(string userType, string userName, string password)
     {
         User user;
         switch (userType)

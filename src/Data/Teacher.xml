@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTeacher xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Teacher>
+    <Id>0a9a70a6-2465-4481-84b4-b9963fca522d</Id>
+    <UserName>Alfredo</UserName>
+    <Password>202cb962ac59075b964b07152d234b70</Password>
+    <TypeOfUser>Teacher</TypeOfUser>
+    <Salary />
+    <Payroll />
+    <Subjects />
+    <Classes />
+  </Teacher>
+</ArrayOfTeacher>

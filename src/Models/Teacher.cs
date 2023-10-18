@@ -8,16 +8,34 @@ namespace Almacen.Models
     {
         [JsonInclude]
         public string Salary { get; set; }
+        [JsonInclude]
+        public string Payroll { get; set; }
+        [JsonInclude]
+        public List<string> Subjects { get; set; }
+        public List<Class> Classes { get; set; }
         public Teacher(string userName, string password) : base(userName, password)
         {
             Salary = string.Empty;
+            Payroll = string.Empty;
+            Subjects = new List<string>();
+            Classes = new List<Class>();
+            TypeOfUser = UserFactory.Teacher;
         }
-
         public Teacher() : base()
         {
             Salary = string.Empty;
-
+            Payroll = string.Empty;
+            Subjects = new List<string>();
+            Classes = new List<Class>();
+            TypeOfUser = UserFactory.Teacher;
         }
-
+        public string GetPayroll()
+        {
+            return Payroll;
+        }
+        public void SetPayroll(string payroll)
+        {
+            Payroll = payroll;
+        }
     }
 }

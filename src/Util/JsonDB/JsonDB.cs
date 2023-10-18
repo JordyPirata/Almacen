@@ -4,31 +4,26 @@ namespace Almacen.Util.JsonUser;
 
 public class JsonDB : DB
 {
-    public string TypeOfUser { get; set; }
     public string Path { get; set; }
     public JsonDB(string typeOfUser) : base(typeOfUser)
     {
         TypeOfUser = typeOfUser;
-        Path = CreateDB();
+        Path = $"Data/{TypeOfUser}.json";
+        CreateDB();
     }
-    public override string CreateDB()
+    public override void CreateDB()
     {
         // Create directory if it does not exist
-        const string directoryPath = "Data";
 
-        if (!Directory.Exists(directoryPath))
+        if (!Directory.Exists("Data"))
         {
-            Directory.CreateDirectory(directoryPath);
+            Directory.CreateDirectory("Data");
         }
-
         // Create file if it does not exist
-        string filePath = Path = $"{directoryPath}/{TypeOfUser}.json";
-        if (!File.Exists(filePath))
+        if (!File.Exists(Path))
         {
-            File.Create(filePath).Close();
+            File.Create(Path).Close();
         }
-
-        return filePath;
     }
     public override List<Teacher>? GetTeachers()
     {
@@ -88,7 +83,7 @@ public class JsonDB : DB
     }
     public override void DeleteUser(User user)
     {
-        switch(user)
+        switch (user)
         {
             case Teacher teacher:
                 List<Teacher> teachers = GetTeachers() ?? new List<Teacher>();

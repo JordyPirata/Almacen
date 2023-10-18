@@ -1,16 +1,24 @@
 using Almacen.Models;
 namespace Almacen.Util;
 
+public enum ReportType
+{
+    ReportByClassroom,
+    ReportByPayroll,
+    ReportBySubject,
+    ReportById,
+    ReportByUserName,
+
+}
 public abstract class DB
 {
     public string TypeOfUser { get; set; }
-    public string Path { get; set; }
+
     public DB(string typeOfUser)
     {
         TypeOfUser = typeOfUser;
-        Path = CreateDB();
     }
-    public abstract string CreateDB();
+    public abstract void CreateDB();
     public abstract void SaveUser(User user);
     public abstract List<Teacher>? GetTeachers();
     public abstract List<Student>? GetStudents();
@@ -32,7 +40,7 @@ public abstract class DB
                 throw new ArgumentException("Invalid user type", nameof(TypeOfUser));
         }
     }
-    public User getUser(string userName)
+    public User  GetUser(string userName)
     {
         switch (TypeOfUser)
         {
@@ -50,4 +58,5 @@ public abstract class DB
         }
     }
     public abstract void DeleteUser(User user);
+    
 }

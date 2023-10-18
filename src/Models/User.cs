@@ -15,40 +15,23 @@ namespace Almacen.Models
         [Required]
         [JsonInclude]
         public string Password { get; set; }
+        [Required]
         [JsonInclude]
-        public string? Name { get; set; }
-        [JsonInclude]
-        public string LastName { get; set; }
-        [JsonInclude]
-        public string SurName { get; set; }
-        [System.Text.Json.Serialization.JsonIgnore]
-        public string FullName => $"{Name} {LastName} {SurName}";
-
+        public string TypeOfUser { get; set; }
         public User(string userName, string password)
         {
             Id = Guid.NewGuid().ToString();
             UserName = userName;
             Password = Md5Encryption.GetMd5Hash(password);
-            Name = string.Empty;
-            LastName = string.Empty;
-            SurName = string.Empty;
+            TypeOfUser = string.Empty;
         }
-
         public User()
         {
             // Empty constructor
             Id = Guid.NewGuid().ToString();
             UserName = string.Empty;
             Password = string.Empty;
-            Name = null;
-            LastName = string.Empty;
-            SurName = string.Empty;
+            TypeOfUser = string.Empty;
         }
-
-        public string getPassword()
-        {
-            return Password;
-        }
-
     }
 }

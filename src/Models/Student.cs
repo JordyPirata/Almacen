@@ -8,9 +8,11 @@ public class Student : User
     public Student(string userName, string password) : base(userName, password)
     {
         classroms = new List<string>();
+        TypeOfUser = UserFactory.Student;
     }
     public Student() : base()
     {
         classroms = new List<string>();
+        TypeOfUser = UserFactory.Student;
     }
 }

@@ -1,10 +1,10 @@
 // Purpose: Login class for the Almacen program.
-
+using Almacen.Models;
 namespace Almacen.Login;
 
 public class Login
 {
-    public const string singIn = "Sign In", signUp = "Sign Up";
+    public const string singIn = "Sign In", signUp = "Sign Up", exit = "Exit";
     public const string gStoreKeeper = "StoreKeeper", gTeacher = "Teacher", gStudent = "Student";
     public static string SelectUser()
     {
@@ -19,25 +19,30 @@ public class Login
         return typeOfUser;
     }
     //Console Login
-    public static void ConsoleLogin()
+    public static User? ConsoleLogin()
     {
         // login with user and password or create new user
         Clear();
+        User? UserReturn = null;
         var user = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("Select an option")
-                .PageSize(3)
+                .PageSize(4)
                 .AddChoices(new[] {
-                    singIn, signUp
+                    singIn, signUp, exit
         }));
         switch (user)
         {
             case singIn:
-                SignIn.Sign_In();
+                UserReturn = SignIn.Sign_In();
                 break;
             case signUp:
                 SignUp.Sign_Up();
                 break;
+            case exit:
+                Environment.Exit(0);
+                break;
         }
+        return UserReturn;
     }
 }

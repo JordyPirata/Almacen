@@ -9,6 +9,7 @@ public class SignUp : Login
     public static void Sign_Up()
     {
         // login with user and password or create new user
+        AnsiConsole.Markup("[blue]Sign Up[/]\n");
         var typeOfUser = SelectUser();
         switch (typeOfUser)
         {
@@ -51,7 +52,7 @@ public class SignUp : Login
             AnsiConsole.Markup($"{message}");
             //Check if user exist in database
         } while (password != confirmPassword || dbJson.HaveUser(userName) || dbJson.HaveUser(userName));
-        
+
         //Save user
         dbJson.SaveUser(UserFactory.CreateUser(typeOfUser, userName, password));
         dbXml.SaveUser(UserFactory.CreateUser(typeOfUser, userName, password));
@@ -61,6 +62,6 @@ public class SignUp : Login
         AnsiConsole.Markup($"{message}\n[gray]Press any key to continue...[/]");
         ReadLine();
 
-        SignIn.Sign_In();        
+        SignIn.Sign_In();
     }
 }

@@ -7,22 +7,20 @@ namespace Almacen.Util.XmlUser;
 
 public class XmlDB : DB
 {
+    public string Path { get; set; }
     public XmlDB(string typeOfUser) : base(typeOfUser)
     {
         TypeOfUser = typeOfUser;
-        Path = CreateDB();
+        Path = $"Data/{TypeOfUser}.xml";
+        CreateDB();
     }
-    public override string CreateDB()
+    public override void CreateDB()
     {
         // Create directory if it does not exist
-        const string directoryPath = "Data";
-
-        if (!Directory.Exists(directoryPath))
+        if (!Directory.Exists("Data"))
         {
-            Directory.CreateDirectory(directoryPath);
+            Directory.CreateDirectory("Data");
         }
-        string filePath = Path = $"{directoryPath}/{TypeOfUser}.xml";
-        return filePath;
     }
     public override List<Teacher>? GetTeachers()
     {
