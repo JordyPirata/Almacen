@@ -33,5 +33,13 @@ namespace Almacen.Models
             Password = string.Empty;
             TypeOfUser = string.Empty;
         }
+        // override to string
+        public override string ToString()
+        {
+            return "Id: " + Id + "\n" +
+                "UserName: " + UserName + "\n" +
+                "Password: " + Password + "\n" +
+                "TypeOfUser: " + TypeOfUser + "\n";
+        }
     }
 }

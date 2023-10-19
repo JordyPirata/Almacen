@@ -98,11 +98,13 @@ public class XmlDB : DB
     public override void DeleteUser(User user)
     {
         XmlSerializer serializer;
+        int index;
         switch (user)
         {
             case Teacher teacher:
                 List<Teacher> teachers = GetTeachers() ?? new List<Teacher>();
-                teachers.Remove(teacher);
+                index = teachers.FindIndex(t => t.Id == teacher.Id);
+                teachers.RemoveAt(index);
                 serializer = new XmlSerializer(typeof(List<Teacher>));
                 using (FileStream stream = File.Create(Path))
                 {
@@ -111,7 +113,8 @@ public class XmlDB : DB
                 break;
             case Student student:
                 List<Student> students = GetStudents() ?? new List<Student>();
-                students.Remove(student);
+                index = students.FindIndex(s => s.Id == student.Id);
+                students.RemoveAt(index);
                 serializer = new XmlSerializer(typeof(List<Student>));
                 using (FileStream stream = File.Create(Path))
                 {
@@ -120,7 +123,8 @@ public class XmlDB : DB
                 break;
             case StoreKeeper storeKeeper:
                 List<StoreKeeper> storeKeepers = GetStoreKeepers() ?? new List<StoreKeeper>();
-                storeKeepers.Remove(storeKeeper);
+                index = storeKeepers.FindIndex(s => s.Id == storeKeeper.Id);
+                storeKeepers.RemoveAt(index);
                 serializer = new XmlSerializer(typeof(List<StoreKeeper>));
                 using (FileStream stream = File.Create(Path))
                 {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfStoreKeeper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <StoreKeeper>
+    <Id>f6c7ffe5-af30-4e16-b28c-4a0d93e116ae</Id>
+    <UserName>Ruy</UserName>
+    <Password>202cb962ac59075b964b07152d234b70</Password>
+    <TypeOfUser>StoreKeeper</TypeOfUser>
+  </StoreKeeper>
+  <StoreKeeper>
+    <Id>fdd35060-620b-44c8-bea7-de08d8d58727</Id>
+    <UserName>Mine</UserName>
+    <Password>202cb962ac59075b964b07152d234b70</Password>
+    <TypeOfUser>StoreKeeper</TypeOfUser>
+  </StoreKeeper>
+</ArrayOfStoreKeeper>

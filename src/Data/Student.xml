@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfStudent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Student>
+    <Id>ef73b069-ca3e-4ec4-b442-c304e32b5d2c</Id>
+    <UserName>Junno</UserName>
+    <Password>202cb962ac59075b964b07152d234b70</Password>
+    <TypeOfUser>Student</TypeOfUser>
+    <classroms />
+  </Student>
+</ArrayOfStudent>

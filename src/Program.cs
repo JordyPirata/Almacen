@@ -3,10 +3,13 @@ using Almacen.Login;
 using Almacen.Models;
 using Almacen.Menu;
 User? user;
-
-user = Login.ConsoleLogin();
-if (user != null)
+do
 {
-    Menu.MainMenu(user);
-}
+    user = Login.ConsoleLogin();
+    if (user != null)
+    {
+        Menu.MainMenu(user);
+    }
+} while (true);
+
 

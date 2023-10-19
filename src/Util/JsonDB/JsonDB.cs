@@ -83,23 +83,30 @@ public class JsonDB : DB
     }
     public override void DeleteUser(User user)
     {
+        int index;
         switch (user)
         {
             case Teacher teacher:
                 List<Teacher> teachers = GetTeachers() ?? new List<Teacher>();
-                teachers.Remove(teacher);
+                // find index of desired teacher to delete
+                index = teachers.FindIndex(t => t.Id == teacher.Id);
+                teachers.RemoveAt(index);
                 string jsonTeachers = JsonConvert.SerializeObject(teachers);
                 File.WriteAllText(Path, jsonTeachers);
                 break;
             case Student student:
                 List<Student> students = GetStudents() ?? new List<Student>();
-                students.Remove(student);
+                // find index of desired student to delete
+                index = students.FindIndex(s => s.Id == student.Id);
+                students.RemoveAt(index);
                 string jsonStudents = JsonConvert.SerializeObject(students);
                 File.WriteAllText(Path, jsonStudents);
                 break;
             case StoreKeeper storeKeeper:
                 List<StoreKeeper> storeKeepers = GetStoreKeepers() ?? new List<StoreKeeper>();
-                storeKeepers.Remove(storeKeeper);
+                // find index of desired store keeper to delete
+                index = storeKeepers.FindIndex(s => s.Id == storeKeeper.Id);
+                storeKeepers.RemoveAt(index);
                 string jsonStoreKeepers = JsonConvert.SerializeObject(storeKeepers);
                 File.WriteAllText(Path, jsonStoreKeepers);
                 break;

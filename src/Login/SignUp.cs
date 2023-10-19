@@ -51,16 +51,15 @@ public class SignUp : Login
             AnsiConsole.Markup($"{message}");
             //Check if user exist in database
         } while (password != confirmPassword || dbJson.HaveUser(userName) || dbJson.HaveUser(userName));
-
+        //Create user
+        User user = UserFactory.CreateUser(typeOfUser, userName, password);
         //Save user
-        dbJson.SaveUser(UserFactory.CreateUser(typeOfUser, userName, password));
-        dbXml.SaveUser(UserFactory.CreateUser(typeOfUser, userName, password));
+        dbJson.SaveUser(user);
+        dbXml.SaveUser(user);
         Clear();
 
         message = "[green]User created successfully[/]";
         AnsiConsole.Markup($"{message}\n[gray]Press any key to continue...[/]");
         ReadLine();
-
-        SignIn.Sign_In();
     }
 }

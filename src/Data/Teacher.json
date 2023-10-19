@@ -4,8 +4,38 @@
     "Payroll": "",
     "Subjects": [],
     "Classes": [],
-    "Id": "2675fd6b-d1af-4d35-b804-e283dd9eb7cf",
-    "UserName": "Alfredo",
+    "Id": "000c54d9-ffda-411b-a58f-6650dfea0560",
+    "UserName": "Angel",
+    "Password": "202cb962ac59075b964b07152d234b70",
+    "TypeOfUser": "Teacher"
+  },
+  {
+    "Salary": "",
+    "Payroll": "",
+    "Subjects": [],
+    "Classes": [],
+    "Id": "5db05583-c6f2-4884-a10c-f56d19b1e205",
+    "UserName": "Gussa",
+    "Password": "202cb962ac59075b964b07152d234b70",
+    "TypeOfUser": "Teacher"
+  },
+  {
+    "Salary": "",
+    "Payroll": "",
+    "Subjects": [],
+    "Classes": [],
+    "Id": "d3d7fafb-75d1-4c19-8102-6a8ca9d8f304",
+    "UserName": "Araceli",
+    "Password": "202cb962ac59075b964b07152d234b70",
+    "TypeOfUser": "Teacher"
+  },
+  {
+    "Salary": "",
+    "Payroll": "",
+    "Subjects": [],
+    "Classes": [],
+    "Id": "5af941fe-68e1-47dc-9d8a-f24494b3cd00",
+    "UserName": "Ruy Felipe",
     "Password": "202cb962ac59075b964b07152d234b70",
     "TypeOfUser": "Teacher"
   }

@@ -8,6 +8,7 @@ public enum ReportType
     ReportBySubject,
     ReportById,
     ReportByUserName,
+    Exit
 
 }
 public abstract class DB
@@ -40,7 +41,7 @@ public abstract class DB
                 throw new ArgumentException("Invalid user type", nameof(TypeOfUser));
         }
     }
-    public User  GetUser(string userName)
+    public User GetUser(string userName)
     {
         switch (TypeOfUser)
         {
@@ -62,20 +63,20 @@ public abstract class DB
     {
         List<Teacher> teachers = GetTeachers() ?? new List<Teacher>();
         new CustomComparer();
-        switch(type)
+        switch (type)
         {
             case ReportType.ReportByClassroom:
                 //Sort classrooms
-                teachers.ForEach(teacher => teacher.Classes.Sort((x,y) => new CustomComparer().Compare(x, y)));
+                teachers.ForEach(teacher => teacher.Classes.Sort((x, y) => new CustomComparer().Compare(x, y)));
                 //Sort teachers by first classroom
-                teachers.Sort((x,y) => new CustomComparer().Compare(x.Classes[0], y.Classes[0]));
+                teachers.Sort((x, y) => new CustomComparer().Compare(x.Classes[0], y.Classes[0]));
                 break;
             case ReportType.ReportByPayroll:
                 teachers.Sort((x, y) => new CustomComparer().Compare(x.Payroll, y.Payroll));
                 break;
             case ReportType.ReportBySubject:
                 //Sort subjects
-                teachers.ForEach(teacher => teacher.Subjects.Sort((x,y) => new CustomComparer().Compare(x, y)));
+                teachers.ForEach(teacher => teacher.Subjects.Sort((x, y) => new CustomComparer().Compare(x, y)));
                 //Sort teachers by first subject
                 teachers.Sort((x, y) => new CustomComparer().Compare(x.Subjects[0], y.Subjects[0]));
                 break;

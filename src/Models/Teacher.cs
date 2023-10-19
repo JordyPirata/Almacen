@@ -37,5 +37,14 @@ namespace Almacen.Models
         {
             Payroll = payroll;
         }
+        // override to string
+        public override string ToString()
+        {
+            return base.ToString() +
+                "Salary: " + Salary + "\n" +
+                "Payroll: " + Payroll + "\n" +
+                "Subjects: " + Subjects + "\n" +
+                "Classes: " + Classes + "\n";
+        }
     }
 }
